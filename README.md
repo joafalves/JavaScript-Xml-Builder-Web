@@ -1,4 +1,4 @@
-# JavaScript-Xml-Builder
+# JavaScript-Xml-Builder-Web
 Simple Javascript Class Builder for the web!
 
 # How to use:
