@@ -26,6 +26,6 @@ console.log(xmlStr);
 
 Will generate:
 
-```
+```xml
 <master><slave attrib="myValue"><inner>myValueA</inner><inner>myValueB</inner><inner>myValueC</inner></slave><slave attrib="myValue"/></master>
 ```
