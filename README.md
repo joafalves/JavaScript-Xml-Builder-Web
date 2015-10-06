@@ -1,5 +1,5 @@
 # JavaScript-Xml-Builder
-Simple Javascript Class Builder
+Simple Javascript Class Builder for the web!
 
 # How to use:
 - Import the xmlbuilder.js file in your HTML page.
