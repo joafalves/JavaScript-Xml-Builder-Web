@@ -23,3 +23,9 @@ var xmlStr = builder.create("master")
 console.log(xmlStr);
 
 ```
+
+Will generate:
+
+```
+<master><slave attrib="myValue"><inner>myValueA</inner><inner>myValueB</inner><inner>myValueC</inner></slave><slave attrib="myValue"/></master>
+```
