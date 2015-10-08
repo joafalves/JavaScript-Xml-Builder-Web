@@ -27,9 +27,9 @@ console.log(xmlStr);
 Will generate:
 
 ```xml
-<master>
+<master xmlns="bx:mpa" xmlns:url="url">
     <slave attrib="myValue">
-        <inner>myValueA</inner>
+        <url:inner>myValueA</inner>
         <inner>myValueB</inner>
         <inner>myValueC</inner>
     </slave>
