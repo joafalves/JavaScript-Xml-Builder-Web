@@ -10,9 +10,9 @@ Simple Javascript Class Builder for the web!
 
 var builder = new XmlBuilder();
 
-var xmlStr = builder.create("master")
+var xmlStr = builder.create("master", {"xmlns": "bx:mpa", "xmlns:url": "url"}])
 				.elem("slave", "", {"attrib": "myValue"})
-					.elem("inner", "myValueA")
+					.elem("url:inner", "myValueA")
 					.parent().elem("inner", "myValueB")
 					.parent().elem("inner", "myValueC")
 					.flush()

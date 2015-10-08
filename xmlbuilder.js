@@ -5,6 +5,7 @@ var XmlBuilder = (function() {
 
 		this.xmlDoc;
 		this.activeNode = null;
+		this.xmlProlog = "";
 	}
 
 	/* private helper functions */
@@ -22,14 +23,17 @@ var XmlBuilder = (function() {
 
 	/* class functions */
 
-	XmlBuilder.prototype.create = function(rootName, xmlns, type) {
-		if(typeof type === "undefined")
-			type = null;
+	XmlBuilder.prototype.create = function(rootName, attributes, prolog) {
+		if(typeof prolog === "undefined")
+			this.xmlProlog = "";
+		else
+			this.xmlProlog = prolog;
 
-		if(typeof xmlns === "undefined")
-			xmlns = "";
+		this.xmlDoc = document.implementation.createDocument("", rootName, null);
 
-		this.xmlDoc = document.implementation.createDocument(xmlns, rootName, type);
+		if(typeof attributes !== "undefined")
+            for(var key in attributes)
+               this.xmlDoc.documentElement.setAttribute(key, attributes[key]);
 
 		return this;
 	}
@@ -45,6 +49,9 @@ var XmlBuilder = (function() {
 
 		if(typeof content !== "undefined")
 			node.textContent = content;
+
+		// this can be used to add namespaces to the attributes:
+		//node.setAttributeNS("teset", "a", "b");
 
 		if(typeof attributes !== "undefined")
 			for(var key in attributes)
@@ -72,7 +79,7 @@ var XmlBuilder = (function() {
 
 	XmlBuilder.prototype.toString = function() {
 		var serializer = new XMLSerializer();
-		return serializer.serializeToString(this.xmlDoc);
+		return this.xmlProlog + serializer.serializeToString(this.xmlDoc);
 	}
 
 	return XmlBuilder;
