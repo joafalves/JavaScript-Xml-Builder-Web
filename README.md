@@ -10,7 +10,7 @@ Simple Javascript Class Builder for the web!
 
 var builder = new XmlBuilder();
 
-var xmlStr = builder.create("master", {"xmlns": "bx:mpa", "xmlns:url": "url"}])
+var xmlStr = builder.create("master", {"xmlns": "bx:mpa", "xmlns:url": "url"})
 				.elem("slave", "", {"attrib": "myValue"})
 					.elem("url:inner", "myValueA")
 					.if(0>1).parent().elem("inner", "myValueB").endif() // 0 > 1 condition = sample, this won't be added
@@ -27,9 +27,14 @@ console.log(xmlStr);
 Will generate:
 
 ```xml
-<master>
+<master xmlns="bx:mpa" xmlns:url="url">
     <slave attrib="myValue">
+<<<<<<< HEAD
         <inner>myValueA</inner>
+=======
+        <url:inner>myValueA</url:inner>
+        <inner>myValueB</inner>
+>>>>>>> origin/master
         <inner>myValueC</inner>
     </slave>
     <slave attrib="myValue"/>
