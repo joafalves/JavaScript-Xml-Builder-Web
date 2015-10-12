@@ -12,10 +12,10 @@ var builder = new XmlBuilder();
 
 var xmlStr = builder.create("master", {"xmlns": "bx:mpa", "xmlns:url": "url"})
 				.elem("slave", "", {"attrib": "myValue"})
-					.elem("url:inner", "myValueA")
+					.elem("url:inner", "myValueA") // add an element
 					.if(0>1).parent().elem("inner", "myValueB").endif() // 0 > 1 condition = sample, this won't be added
 					.parent().elem("inner", "myValueC")
-					.flush()
+					.flush() // resets parenting logic
 				.elem("slave", "", {"attrib": "myValue"})
 				.flush()
 				.toString();
