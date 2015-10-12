@@ -29,7 +29,6 @@ Will generate:
 ```xml
 <master xmlns="bx:mpa" xmlns:url="url">
     <slave attrib="myValue">
-        <inner>myValueA</inner>
         <url:inner>myValueA</url:inner>
         <inner>myValueC</inner>
     </slave>
