@@ -13,7 +13,7 @@ var builder = new XmlBuilder();
 var xmlStr = builder.create("master", {"xmlns": "bx:mpa", "xmlns:url": "url"}])
 				.elem("slave", "", {"attrib": "myValue"})
 					.elem("url:inner", "myValueA")
-					.parent().elem("inner", "myValueB")
+					.if(0>1).parent().elem("inner", "myValueB").endif() // 0 > 1 condition = sample, this won't be added
 					.parent().elem("inner", "myValueC")
 					.flush()
 				.elem("slave", "", {"attrib": "myValue"})
@@ -30,7 +30,6 @@ Will generate:
 <master>
     <slave attrib="myValue">
         <inner>myValueA</inner>
-        <inner>myValueB</inner>
         <inner>myValueC</inner>
     </slave>
     <slave attrib="myValue"/>

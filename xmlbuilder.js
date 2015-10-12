@@ -6,6 +6,7 @@ var XmlBuilder = (function() {
 		this.xmlDoc;
 		this.activeNode = null;
 		this.xmlProlog = "";
+		this.allowed = true; // if false it won't build more elements
 	}
 
 	/* private helper functions */
@@ -13,7 +14,7 @@ var XmlBuilder = (function() {
 	var switchNode = function (builder, newNode) {
 		if(builder.activeNode != null) {
 			builder.activeNode.appendChild(newNode);
-			newNode.parentNode = builder.activeNode;
+			//newNode.parentNode = builder.activeNode;
 		}
 
 		builder.activeNode = newNode;
@@ -38,31 +39,43 @@ var XmlBuilder = (function() {
 		return this;
 	}
 
+	XmlBuilder.prototype.if = function(condition) {
+	    this.allowed = condition;
+	    return this;
+	}
+
+	XmlBuilder.prototype.endif = function() {
+        this.allowed = true;
+	    return this;
+	}
+
 	/* add a xml element */
 	XmlBuilder.prototype.elem = function(elemName, content, attributes) {
-		var node = this.xmlDoc.createElement(elemName);
+	    if(this.allowed) {
+            var node = this.xmlDoc.createElement(elemName);
 
-		if(this.activeNode == null)
-			this.xmlDoc.documentElement.appendChild(node);
+            if(this.activeNode == null)
+                this.xmlDoc.documentElement.appendChild(node);
 
-		node = switchNode(this, node);
+            node = switchNode(this, node);
 
-		if(typeof content !== "undefined")
-			node.textContent = content;
+            if(typeof content !== "undefined")
+                node.textContent = content;
 
-		// this can be used to add namespaces to the attributes:
-		//node.setAttributeNS("teset", "a", "b");
+            // this can be used to add namespaces to the attributes:
+            //node.setAttributeNS("teset", "a", "b");
 
-		if(typeof attributes !== "undefined")
-			for(var key in attributes)
-				node.setAttribute(key, attributes[key]);
+            if(typeof attributes !== "undefined")
+                for(var key in attributes)
+                    node.setAttribute(key, attributes[key]);
+        }
 
 		return this;
 	}
 
 	/* mainly resets parenting logic */
 	XmlBuilder.prototype.flush = function() {
-		if(this.activeNode != null) {
+		if(this.allowed && this.activeNode != null) {
 			this.activeNode = null; // clear
 		}
 
@@ -71,7 +84,7 @@ var XmlBuilder = (function() {
 
 	/* sets the current node as the current node parent (if available) */
 	XmlBuilder.prototype.parent = function() {
-		if(this.activeNode != null && typeof this.activeNode.parentNode !== "undefined")
+		if(this.allowed && this.activeNode != null && typeof this.activeNode.parentNode !== "undefined")
 			this.activeNode = this.activeNode.parentNode;
 
 		return this;
