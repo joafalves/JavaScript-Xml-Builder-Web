@@ -29,12 +29,8 @@ Will generate:
 ```xml
 <master xmlns="bx:mpa" xmlns:url="url">
     <slave attrib="myValue">
-<<<<<<< HEAD
         <inner>myValueA</inner>
-=======
         <url:inner>myValueA</url:inner>
-        <inner>myValueB</inner>
->>>>>>> origin/master
         <inner>myValueC</inner>
     </slave>
     <slave attrib="myValue"/>
